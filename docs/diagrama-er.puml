@@ -1,0 +1,150 @@
+@startuml Diagrama_ER_Estaciones
+!theme plain
+skinparam linetype ortho
+
+' Tablas de Referencia Geográfica
+entity "COMUNIDAD_AUTONOMA" as ccaa {
+  * id_ccaa : VARCHAR(10) <<PK>>
+  --
+  * nombre_ccaa : VARCHAR(100) <<UK>>
+}
+
+entity "PROVINCIA" as provincia {
+  * id_provincia : VARCHAR(10) <<PK>>
+  --
+  * id_ccaa : VARCHAR(10) <<FK>>
+  * nombre_provincia : VARCHAR(100)
+}
+
+entity "MUNICIPIO" as municipio {
+  * id_municipio : VARCHAR(10) <<PK>>
+  --
+  * id_provincia : VARCHAR(10) <<FK>>
+  * id_ccaa : VARCHAR(10) <<FK>>
+  * nombre_municipio : VARCHAR(150)
+}
+
+' Tablas de Referencia de Negocio
+entity "EMPRESA" as empresa {
+  * id_empresa : BIGSERIAL <<PK>>
+  --
+  * nombre_rotulo : VARCHAR(200) <<UK>>
+  created_at : TIMESTAMP
+}
+
+entity "PRODUCTO_PETROLIFERO" as producto {
+  * id_producto : VARCHAR(10) <<PK>>
+  --
+  * nombre_producto : VARCHAR(150)
+  nombre_abreviatura : VARCHAR(50)
+}
+
+' Tablas de Estaciones Terrestres
+entity "ESTACION_SERVICIO_TERRESTRE" as est_terrestre {
+  * id_eess : VARCHAR(20) <<PK>>
+  --
+  * id_empresa : BIGINT <<FK>>
+  * id_municipio : VARCHAR(10) <<FK>>
+  * id_provincia : VARCHAR(10) <<FK>>
+  * id_ccaa : VARCHAR(10) <<FK>>
+  codigo_postal : VARCHAR(10)
+  direccion : VARCHAR(300)
+  localidad : VARCHAR(150)
+  margen : VARCHAR(10)
+  latitud : DECIMAL(10,8)
+  longitud : DECIMAL(11,8)
+  horario : TEXT
+  tipo_venta : VARCHAR(50)
+  remision : VARCHAR(10)
+  fecha_actualizacion : TIMESTAMP
+  created_at : TIMESTAMP
+}
+
+entity "PRECIO_TERRESTRE" as precio_terrestre {
+  * id_precio : BIGSERIAL <<PK>>
+  --
+  * id_eess : VARCHAR(20) <<FK>>
+  * id_producto : VARCHAR(10) <<FK>>
+  * precio : DECIMAL(6,3)
+  fecha_registro : TIMESTAMP
+}
+
+' Tablas de Estaciones Marítimas
+entity "ESTACION_SERVICIO_MARITIMA" as est_maritima {
+  * id_poste_maritimo : VARCHAR(20) <<PK>>
+  --
+  * id_empresa : BIGINT <<FK>>
+  * id_municipio : VARCHAR(10) <<FK>>
+  * id_provincia : VARCHAR(10) <<FK>>
+  * id_ccaa : VARCHAR(10) <<FK>>
+  codigo_postal : VARCHAR(10)
+  direccion : VARCHAR(300)
+  localidad : VARCHAR(150)
+  puerto : VARCHAR(150)
+  latitud : DECIMAL(10,8)
+  longitud : DECIMAL(11,8)
+  horario : TEXT
+  tipo_venta : VARCHAR(50)
+  remision : VARCHAR(10)
+  fecha_actualizacion : TIMESTAMP
+  created_at : TIMESTAMP
+}
+
+entity "PRECIO_MARITIMO" as precio_maritimo {
+  * id_precio : BIGSERIAL <<PK>>
+  --
+  * id_poste_maritimo : VARCHAR(20) <<FK>>
+  * id_producto : VARCHAR(10) <<FK>>
+  * precio : DECIMAL(6,3)
+  fecha_registro : TIMESTAMP
+}
+
+' Relaciones Geográficas
+ccaa ||--o{ provincia : "tiene"
+provincia ||--o{ municipio : "contiene"
+ccaa ||--o{ municipio : "pertenece_a"
+
+' Relaciones de Estaciones Terrestres
+empresa ||--o{ est_terrestre : "opera"
+municipio ||--o{ est_terrestre : "ubicada_en"
+provincia ||--o{ est_terrestre : "ubicada_en"
+ccaa ||--o{ est_terrestre : "ubicada_en"
+est_terrestre ||--o{ precio_terrestre : "tiene"
+producto ||--o{ precio_terrestre : "precio_de"
+
+' Relaciones de Estaciones Marítimas
+empresa ||--o{ est_maritima : "opera"
+municipio ||--o{ est_maritima : "ubicada_en"
+provincia ||--o{ est_maritima : "ubicada_en"
+ccaa ||--o{ est_maritima : "ubicada_en"
+est_maritima ||--o{ precio_maritimo : "tiene"
+producto ||--o{ precio_maritimo : "precio_de"
+
+note right of ccaa
+  Comunidades autónomas
+  de España
+end note
+
+note right of empresa
+  Empresas operadoras
+  de estaciones
+end note
+
+note right of producto
+  Productos petrolíferos:
+  Gasolina 95 E5,
+  Gasóleo A, etc.
+end note
+
+note right of est_terrestre
+  Estaciones terrestres
+  con coordenadas GPS
+end note
+
+note right of est_maritima
+  Postes marítimos
+  con información de puerto
+end note
+
+@enduml
+

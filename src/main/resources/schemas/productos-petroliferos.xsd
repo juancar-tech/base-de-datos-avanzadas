@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ServiciosCarburantes" 
+           elementFormDefault="qualified" 
+           targetNamespace="http://schemas.datacontract.org/2004/07/ServiciosCarburantes" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfProductosPetroliferos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductosPetroliferos" nillable="true" type="tns:ProductosPetroliferos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductosPetroliferos" nillable="true" type="tns:ArrayOfProductosPetroliferos" />
+  <xs:complexType name="ProductosPetroliferos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreProductoAbreviatura" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductosPetroliferos" nillable="true" type="tns:ProductosPetroliferos" />
+</xs:schema>
+
+

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ServiciosCarburantes" 
+           elementFormDefault="qualified" 
+           targetNamespace="http://schemas.datacontract.org/2004/07/ServiciosCarburantes" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="PreciosEESSTerrestres">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ListaEESSPrecio" nillable="true" type="tns:ArrayOfEESSPrecio" />
+      <xs:element minOccurs="0" name="Nota" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResultadoConsulta" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PreciosEESSTerrestres" nillable="true" type="tns:PreciosEESSTerrestres" />
+  <xs:complexType name="ArrayOfEESSPrecio">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EESSPrecio" nillable="true" type="tns:EESSPrecio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEESSPrecio" nillable="true" type="tns:ArrayOfEESSPrecio" />
+  <xs:complexType name="EESSPrecio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="C.P." nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Dirección" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Horario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Localidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitud_x0020__x0028_WGS84_x0029_" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Margen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Municipio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Adblue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Amoniaco" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Biodiesel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Bioetanol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Biogas_x0020_Natural_x0020_Comprimido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Biogas_x0020_Natural_x0020_Licuado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Diésel_x0020_Renovable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gas_x0020_Natural_x0020_Comprimido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gas_x0020_Natural_x0020_Licuado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gases_x0020_licuados_x0020_del_x0020_petróleo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasoleo_x0020_A" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasoleo_x0020_B" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasoleo_x0020_Premium" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_95_x0020_E10" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_95_x0020_E25" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_95_x0020_E5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_95_x0020_E5_x0020_Premium" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_95_x0020_E85" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_98_x0020_E10" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_98_x0020_E5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Gasolina_x0020_Renovable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Hidrogeno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio_x0020_Metanol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Provincia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Remisión" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rótulo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tipo_x0020_Venta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="_x0025__x0020_BioEtanol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="_x0025__x0020_Éster_x0020_metílico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDEESS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDMunicipio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDProvincia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDCCAA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EESSPrecio" nillable="true" type="tns:EESSPrecio" />
+</xs:schema>
+
+

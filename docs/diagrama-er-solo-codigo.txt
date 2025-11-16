@@ -1,0 +1,106 @@
+erDiagram
+    COMUNIDAD_AUTONOMA {
+        VARCHAR id_ccaa PK
+        VARCHAR nombre_ccaa UK
+    }
+    
+    PROVINCIA {
+        VARCHAR id_provincia PK
+        VARCHAR id_ccaa FK
+        VARCHAR nombre_provincia
+    }
+    
+    MUNICIPIO {
+        VARCHAR id_municipio PK
+        VARCHAR id_provincia FK
+        VARCHAR id_ccaa FK
+        VARCHAR nombre_municipio
+    }
+    
+    EMPRESA {
+        BIGSERIAL id_empresa PK
+        VARCHAR nombre_rotulo UK
+        TIMESTAMP created_at
+    }
+    
+    PRODUCTO_PETROLIFERO {
+        VARCHAR id_producto PK
+        VARCHAR nombre_producto
+        VARCHAR nombre_abreviatura
+    }
+    
+    ESTACION_SERVICIO_TERRESTRE {
+        VARCHAR id_eess PK
+        BIGINT id_empresa FK
+        VARCHAR id_municipio FK
+        VARCHAR id_provincia FK
+        VARCHAR id_ccaa FK
+        VARCHAR codigo_postal
+        VARCHAR direccion
+        VARCHAR localidad
+        VARCHAR margen
+        DECIMAL latitud
+        DECIMAL longitud
+        TEXT horario
+        VARCHAR tipo_venta
+        VARCHAR remision
+        TIMESTAMP fecha_actualizacion
+        TIMESTAMP created_at
+    }
+    
+    PRECIO_TERRESTRE {
+        BIGSERIAL id_precio PK
+        VARCHAR id_eess FK
+        VARCHAR id_producto FK
+        DECIMAL precio
+        TIMESTAMP fecha_registro
+    }
+    
+    ESTACION_SERVICIO_MARITIMA {
+        VARCHAR id_poste_maritimo PK
+        BIGINT id_empresa FK
+        VARCHAR id_municipio FK
+        VARCHAR id_provincia FK
+        VARCHAR id_ccaa FK
+        VARCHAR codigo_postal
+        VARCHAR direccion
+        VARCHAR localidad
+        VARCHAR puerto
+        DECIMAL latitud
+        DECIMAL longitud
+        TEXT horario
+        VARCHAR tipo_venta
+        VARCHAR remision
+        TIMESTAMP fecha_actualizacion
+        TIMESTAMP created_at
+    }
+    
+    PRECIO_MARITIMO {
+        BIGSERIAL id_precio PK
+        VARCHAR id_poste_maritimo FK
+        VARCHAR id_producto FK
+        DECIMAL precio
+        TIMESTAMP fecha_registro
+    }
+    
+    %% Relaciones de Referencia Geográfica
+    COMUNIDAD_AUTONOMA ||--o{ PROVINCIA : "tiene"
+    PROVINCIA ||--o{ MUNICIPIO : "contiene"
+    COMUNIDAD_AUTONOMA ||--o{ MUNICIPIO : "pertenece_a"
+    
+    %% Relaciones de Estaciones Terrestres
+    EMPRESA ||--o{ ESTACION_SERVICIO_TERRESTRE : "opera"
+    MUNICIPIO ||--o{ ESTACION_SERVICIO_TERRESTRE : "ubicada_en"
+    PROVINCIA ||--o{ ESTACION_SERVICIO_TERRESTRE : "ubicada_en"
+    COMUNIDAD_AUTONOMA ||--o{ ESTACION_SERVICIO_TERRESTRE : "ubicada_en"
+    ESTACION_SERVICIO_TERRESTRE ||--o{ PRECIO_TERRESTRE : "tiene"
+    PRODUCTO_PETROLIFERO ||--o{ PRECIO_TERRESTRE : "precio_de"
+    
+    %% Relaciones de Estaciones Marítimas
+    EMPRESA ||--o{ ESTACION_SERVICIO_MARITIMA : "opera"
+    MUNICIPIO ||--o{ ESTACION_SERVICIO_MARITIMA : "ubicada_en"
+    PROVINCIA ||--o{ ESTACION_SERVICIO_MARITIMA : "ubicada_en"
+    COMUNIDAD_AUTONOMA ||--o{ ESTACION_SERVICIO_MARITIMA : "ubicada_en"
+    ESTACION_SERVICIO_MARITIMA ||--o{ PRECIO_MARITIMO : "tiene"
+    PRODUCTO_PETROLIFERO ||--o{ PRECIO_MARITIMO : "precio_de"
+

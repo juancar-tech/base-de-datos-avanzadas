@@ -1,0 +1,35 @@
+# Reglas para Cursor AI - Proyecto Estaciones de Servicio
+
+## Arquitectura
+- Seguir arquitectura hexagonal estricta
+- NO contaminar capa de dominio con dependencias de infraestructura
+- Usar inyección por constructor siempre
+
+## Java
+- Usar Java 21 features: Records, Pattern Matching, Virtual Threads
+- Records para objetos inmutables (DTOs, Domain Objects)
+- Classes para entidades JPA mutables
+
+## Naming
+- Entidades JPA: sufijo "Entity" (EmpresaEntity)
+- Objetos dominio: sin sufijos (Empresa)
+- DTOs: sufijo "DTO" (EmpresaDTO)
+- Repositorios JPA internos: "Jpa" prefix (JpaEmpresaRepository)
+- Adaptadores: sufijo "Adapter" (EmpresaRepositoryJpaAdapter)
+
+## PostgreSQL
+- Usar tipos nativos: BIGSERIAL, VARCHAR, DECIMAL, TIMESTAMP
+- Índices en columnas de búsqueda frecuente
+- Constraints con nombres descriptivos (fk_, chk_, idx_)
+
+## Validación XML
+- Siempre validar contra XSD antes de procesar
+- Capturar y loguear errores con línea/columna
+- Lanzar excepciones personalizadas con contexto
+
+## Tests
+- Mockear repositorios en tests unitarios
+- Testcontainers para tests de integración
+- @DataJpaTest para tests de repositorio
+
+

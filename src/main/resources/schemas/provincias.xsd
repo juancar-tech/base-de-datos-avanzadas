@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ServiciosCarburantes" 
+           elementFormDefault="qualified" 
+           targetNamespace="http://schemas.datacontract.org/2004/07/ServiciosCarburantes" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfProvincia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Provincia" nillable="true" type="tns:Provincia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProvincia" nillable="true" type="tns:ArrayOfProvincia" />
+  <xs:complexType name="Provincia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDPovincia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDCCAA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Provincia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CCAA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Provincia" nillable="true" type="tns:Provincia" />
+</xs:schema>
+
+
