@@ -6,6 +6,8 @@ El proyecto sigue una arquitectura hexagonal (puertos y adaptadores) que separa 
 
 ```
 src/main/java/com/estaciones/
+├── EstacionesApplication.java       # Clase principal Spring Boot
+
 ├── domain/                          # Capa de Dominio (sin dependencias externas)
 │   ├── model/                       # Objetos de dominio (Records Java 21)
 │   │   ├── ComunidadAutonoma.java
@@ -23,12 +25,16 @@ src/main/java/com/estaciones/
 │   │   ├── ProvinciaRepository.java
 │   │   ├── MunicipioRepository.java
 │   │   ├── EstacionTerrestreRepository.java
+│   │   ├── EstacionMaritimaRepository.java
 │   │   └── ProductoPetroliferoRepository.java
 │   └── exception/
 │       └── DomainException.java
-│
+
 ├── infrastructure/                  # Capa de Infraestructura
 │   ├── persistence/
+│   │   ├── config/
+│   │   │   ├── PersistenceConfig.java
+│   │   │   └── DatabaseFunctionInitializer.java  # Inicializa funciones PL/pgSQL
 │   │   └── jpa/
 │   │       ├── entity/              # Entidades JPA (mapeo a BD)
 │   │       │   ├── ComunidadAutonomaEntity.java
@@ -42,51 +48,95 @@ src/main/java/com/estaciones/
 │   │       │   └── PrecioMaritimoEntity.java
 │   │       ├── repository/          # Repositorios JPA internos y adaptadores
 │   │       │   ├── JpaEmpresaRepository.java
+│   │       │   ├── JpaComunidadAutonomaRepository.java
+│   │       │   ├── JpaProvinciaRepository.java
+│   │       │   ├── JpaMunicipioRepository.java
+│   │       │   ├── JpaEstacionTerrestreRepository.java
+│   │       │   ├── JpaEstacionMaritimaRepository.java
+│   │       │   ├── JpaProductoPetroliferoRepository.java
 │   │       │   ├── EmpresaRepositoryJpaAdapter.java
-│   │       │   └── ... (otros repositorios)
+│   │       │   ├── ComunidadAutonomaRepositoryJpaAdapter.java
+│   │       │   ├── ProvinciaRepositoryJpaAdapter.java
+│   │       │   ├── MunicipioRepositoryJpaAdapter.java
+│   │       │   ├── EstacionTerrestreRepositoryJpaAdapter.java
+│   │       │   ├── EstacionMaritimaRepositoryJpaAdapter.java
+│   │       │   └── ProductoPetroliferoRepositoryJpaAdapter.java
 │   │       └── mapper/              # Mappers: Domain ↔ JPA Entity
 │   │           ├── EmpresaMapper.java
 │   │           ├── ComunidadAutonomaMapper.java
-│   │           └── ... (otros mappers)
+│   │           ├── ProvinciaMapper.java
+│   │           ├── MunicipioMapper.java
+│   │           ├── EstacionTerrestreMapper.java
+│   │           ├── EstacionMaritimaMapper.java
+│   │           └── ProductoPetroliferoMapper.java
 │   ├── xml/
 │   │   ├── client/                  # Clientes REST para consumir APIs
 │   │   │   └── EnergiaApiClient.java
 │   │   ├── validator/               # Validación XML contra XSD
 │   │   │   └── XmlSchemaValidator.java
+│   │   ├── mapper/                  # Mappers: JAXB → Domain
+│   │   │   └── JaxbToDomainMapper.java
+│   │   ├── model/                   # Modelos JAXB (generados desde XSD)
+│   │   │   ├── ArrayOfComunidadAutonoma.java
+│   │   │   ├── ArrayOfProvincia.java
+│   │   │   ├── ArrayOfMunicipio.java
+│   │   │   ├── ArrayOfProductosPetroliferos.java
+│   │   │   ├── ArrayOfEESSPrecio.java
+│   │   │   ├── ArrayOfPosteMaritimoPrecio.java
+│   │   │   ├── ComunidadAutonomaJaxb.java
+│   │   │   ├── ProvinciaJaxb.java
+│   │   │   ├── MunicipioJaxb.java
+│   │   │   ├── ProductosPetroliferosJaxb.java
+│   │   │   ├── PreciosEESSTerrestres.java
+│   │   │   ├── PreciosPostesMaritimos.java
+│   │   │   ├── EESSPrecio.java
+│   │   │   └── PosteMaritimoPrecio.java
 │   │   ├── config/
 │   │   │   ├── RestTemplateConfig.java
 │   │   │   └── XmlValidatorConfig.java
 │   │   └── exception/
 │   │       └── XmlValidationException.java
-│   ├── batch/
-│   │   ├── config/
-│   │   │   └── BatchConfig.java
-│   │   └── job/
-│   │       └── CargarComunidadesAutonomasJob.java
-│   └── persistence/config/
-│       └── PersistenceConfig.java
-│
+│   └── batch/
+│       ├── config/
+│       │   └── BatchConfig.java
+│       ├── job/                     # Configuraciones de Jobs Spring Batch
+│       │   ├── CargarComunidadesAutonomasJobConfig.java
+│       │   ├── CargarProvinciasJobConfig.java
+│       │   ├── CargarMunicipiosJobConfig.java
+│       │   ├── CargarProductosPetroliferosJobConfig.java
+│       │   ├── CargarEstacionesTerrestresJobConfig.java
+│       │   └── CargarEstacionesMaritimasJobConfig.java
+│       └── reader/                  # Readers lazy para Spring Batch
+│           ├── LazyComunidadesAutonomasReader.java
+│           ├── LazyProvinciasReader.java
+│           ├── LazyMunicipiosReader.java
+│           ├── LazyProductosPetroliferosReader.java
+│           ├── LazyEstacionesTerrestresReader.java
+│           └── LazyEstacionesMaritimasReader.java
+
 ├── application/                     # Capa de Aplicación
 │   ├── service/                     # Servicios de aplicación
 │   │   ├── EmpresaService.java
-│   │   └── EstacionService.java
+│   │   ├── EstacionService.java
+│   │   └── BatchService.java
 │   └── dto/                          # DTOs para API REST
 │       ├── ApiResponse.java
 │       ├── EmpresaDTO.java
 │       └── EstacionCercanaDTO.java
-│
+
 └── adapter/
     └── rest/                         # Controladores REST
         ├── EmpresaController.java
-        └── EstacionController.java
+        ├── EstacionController.java
+        └── BatchController.java
 ```
 
 ## Flujo de Datos
 
 1. **API Externa** → `EnergiaApiClient` → XML sin validar
 2. **Validación XML** → `XmlSchemaValidator` → XML validado contra XSD
-3. **Parseo JAXB** → Clases JAXB generadas → Objetos Java
-4. **Mapeo a Dominio** → Objetos de dominio (Records)
+3. **Parseo JAXB** → Modelos JAXB (`PreciosEESSTerrestres`, `PreciosPostesMaritimos`, etc.)
+4. **Mapeo JAXB → Dominio** → `JaxbToDomainMapper` → Objetos de dominio (Records)
 5. **Repositorio** → Adaptador JPA → Entidad JPA → PostgreSQL
 
 ## Persistencia Intercambiable
@@ -108,9 +158,27 @@ Todos los XML recibidos de las APIs externas se validan contra esquemas XSD ante
 
 Jobs ETL para cargar datos desde las APIs externas:
 
-- Validación XML obligatoria antes de procesar
-- Transacciones por chunks de 100 registros
-- Reintento automático en caso de fallos transitorios
+- **6 Jobs configurados**:
+  - `CargarComunidadesAutonomasJobConfig`
+  - `CargarProvinciasJobConfig`
+  - `CargarMunicipiosJobConfig`
+  - `CargarProductosPetroliferosJobConfig`
+  - `CargarEstacionesTerrestresJobConfig`
+  - `CargarEstacionesMaritimasJobConfig`
+
+- **6 Readers lazy** (carga datos solo cuando se ejecuta el job):
+  - `LazyComunidadesAutonomasReader`
+  - `LazyProvinciasReader`
+  - `LazyMunicipiosReader`
+  - `LazyProductosPetroliferosReader`
+  - `LazyEstacionesTerrestresReader`
+  - `LazyEstacionesMaritimasReader`
+
+- **Características**:
+  - Validación XML obligatoria antes de procesar
+  - Transacciones por chunks de 100 registros
+  - Reintento automático en caso de fallos transitorios
+  - Lectura lazy (no carga datos al iniciar la aplicación)
 
 ## API REST
 
@@ -118,7 +186,15 @@ Endpoints disponibles:
 
 - `GET /api/empresas/mas-estaciones-terrestres` - Empresa con más estaciones terrestres
 - `GET /api/estaciones/cercanas?lat=X&lon=Y&radio=Z&combustible=ID` - Estaciones cercanas
+- `POST /api/batch/ejecutar/{jobName}` - Ejecutar un job de Spring Batch específico
+- `GET /api/batch/estado/{jobExecutionId}` - Consultar estado de ejecución de un job
 
 Documentación Swagger: `http://localhost:8080/swagger-ui.html`
 
+## Funciones de Base de Datos
 
+- **`calcular_distancia_km`**: Función PL/pgSQL que calcula la distancia entre dos puntos geográficos usando la fórmula de Haversine. Se crea automáticamente mediante `DatabaseFunctionInitializer` al iniciar la aplicación (evita problemas con el SQL executor de Spring Boot).
+
+## Componentes Especiales
+
+- **`DatabaseFunctionInitializer`**: Componente `CommandLineRunner` que inicializa funciones PL/pgSQL en la base de datos usando JDBC directamente, evitando problemas con el SQL executor de Spring Boot.
