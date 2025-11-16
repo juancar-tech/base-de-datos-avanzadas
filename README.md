@@ -187,5 +187,5 @@ El DDL se genera automáticamente en `schema.sql` al iniciar la aplicación.
 - ✅ Los esquemas XSD están incluidos en `src/main/resources/schemas/`
 - ✅ Las clases JAXB están creadas manualmente en `src/main/java/com/estaciones/infrastructure/xml/model/`
 - ✅ Los mappers de JAXB a objetos de dominio están implementados
-- ✅ El job de Spring Batch para cargar comunidades autónomas está completo con validación XML
+- ✅ Los job de Spring Batch para cargar datos de estaciones están completos con validación XML
 - ⚠️ El perfil JDBC está configurado pero pendiente de implementar
