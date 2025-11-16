@@ -189,4 +189,3 @@ El DDL se genera automáticamente en `schema.sql` al iniciar la aplicación.
 - ✅ Los mappers de JAXB a objetos de dominio están implementados
 - ✅ El job de Spring Batch para cargar comunidades autónomas está completo con validación XML
 - ⚠️ El perfil JDBC está configurado pero pendiente de implementar
-- ⚠️ Los jobs para otras entidades (provincias, municipios, productos, estaciones) están pendientes de completar
