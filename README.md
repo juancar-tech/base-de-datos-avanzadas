@@ -30,13 +30,13 @@ CREATE DATABASE estaciones_db;
 ### 2. Variables de Entorno
 
 Las credenciales por defecto están configuradas en `application.properties`:
-- Usuario: `profesor`
+- Usuario: `postgres`
 - Password: `postgres`
 
 Si necesitas cambiarlas, puedes usar variables de entorno:
 
 ```bash
-export DB_USERNAME=profesor
+export DB_USERNAME=postgres
 export DB_PASSWORD=postgres
 ```
 

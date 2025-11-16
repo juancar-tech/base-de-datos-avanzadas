@@ -94,7 +94,7 @@ INFO  - Job completado exitosamente
 
 ```sql
 -- Conectarse a PostgreSQL
-psql -U profesor -d estaciones_db
+psql -U postgres -d estaciones_db
 
 -- Verificar comunidades autónomas cargadas
 SELECT * FROM comunidad_autonoma;
@@ -223,7 +223,7 @@ mvn spring-boot:run
 curl -X POST http://localhost:8080/api/batch/jobs/cargar-comunidades-autonomas
 
 # 3. Verificar en base de datos
-psql -U profesor -d estaciones_db -c "SELECT * FROM comunidad_autonoma;"
+psql -U postgres -d estaciones_db -c "SELECT * FROM comunidad_autonoma;"
 ```
 
 ¡Listo! El batch está preparado y funcionando. 🚀

@@ -4,7 +4,7 @@
 -- =====================================================
 -- 
 -- USO:
---   psql -U profesor -d estaciones_db -f scripts/limpiar-base-datos.sql
+--   psql -U postgres -d estaciones_db -f scripts/limpiar-base-datos.sql
 -- 
 -- O desde psql:
 --   \c estaciones_db

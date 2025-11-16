@@ -13,16 +13,16 @@ CREATE DATABASE estaciones_db;
 
 2. **Conectarse a la base de datos**:
 ```bash
-psql -U profesor -d estaciones_db
+psql -U postgres -d estaciones_db
 ```
 
 3. **Ejecutar el script**:
 ```bash
-psql -U profesor -d estaciones_db -f src/main/resources/db/schema.sql
+psql -U postgres -d estaciones_db -f src/main/resources/db/schema.sql
 ```
 
 **Nota:** Las credenciales por defecto son:
-- Usuario: `profesor`
+- Usuario: `postgres`
 - Password: `postgres`
 
 O desde psql:
