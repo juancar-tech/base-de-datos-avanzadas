@@ -1,4 +1,4 @@
-# Sistema de Gestión de Estaciones de Servicio
+# Actividad 1 - Sistema de Gestión de Estaciones de Servicio
 
 Sistema Spring Boot empresarial para gestionar estaciones de servicio consumiendo APIs del Ministerio de Energía español.
 
@@ -190,4 +190,3 @@ El DDL se genera automáticamente en `schema.sql` al iniciar la aplicación.
 - ✅ El job de Spring Batch para cargar comunidades autónomas está completo con validación XML
 - ⚠️ El perfil JDBC está configurado pero pendiente de implementar
 - ⚠️ Los jobs para otras entidades (provincias, municipios, productos, estaciones) están pendientes de completar
-
